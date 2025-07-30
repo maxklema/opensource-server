@@ -25,17 +25,14 @@ UPDATE_CONTAINER="${17}"
 CONTAINER_NAME="${CONTAINER_NAME,,}"
 
 sleep 3
-pct stop $CONTAINER_ID > /dev/null 2>&1
-
-echo "$START_COMMAND"
-echo "$BUILD_COMMAND"
-echo "$RUNTIME_LANGUAGE"
-
-sleep 10
-
+if (( $CONTAINER_ID % 2 == 0 )); then
+	ssh root@10.15.0.5 "pct stop $CONTAINER_ID" > /dev/null 2>&1
+else
+	pct stop $CONTAINER_ID > /dev/null 2>&1
+fi
 
 # Create template if on default branch ====
-# source /var/lib/vz/snippets/helper-scripts/create-template.sh
+source /var/lib/vz/snippets/helper-scripts/create-template.sh
 
 if (( $CONTAINER_ID % 2 == 0 )); then
 
