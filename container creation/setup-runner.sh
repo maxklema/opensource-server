@@ -30,7 +30,7 @@ TEMPLATE_NAME="template-$REPO_BASE_NAME-$REPO_BASE_NAME_WITH_OWNER"
 CTID_TEMPLATE=$( { pct list; ssh root@10.15.0.5 'pct list'; } | awk -v name="$TEMPLATE_NAME" '$3 == name {print $1}')
 
 case "${LINUX_DISTRIBUTION^^}" in
-  DEBIAN) PACKAGE_MANAGER="apt-get" ;;
+  "") PACKAGE_MANAGER="apt-get" ;;
   ROCKY)  PACKAGE_MANAGER="dnf" ;;
 esac
 
@@ -38,10 +38,10 @@ esac
 
 if [ -z "$CTID_TEMPLATE" ]; then
   case "${LINUX_DISTRIBUTION^^}" in
-    DEBIAN) CTID_TEMPLATE="160" ;;
+    "") CTID_TEMPLATE="160" ;;
     ROCKY)  CTID_TEMPLATE="138" ;;
   esac
-fi 
+fi
 
 REPO_BASE_NAME=$(basename -s .git "$PROJECT_REPOSITORY")
 REPO_BASE_NAME_WITH_OWNER=$(echo "$PROJECT_REPOSITORY" | cut -d'/' -f4)
@@ -66,9 +66,6 @@ pveum aclmod /vms/$NEXT_ID --user "$PROXMOX_USERNAME@pve" --role PVEVMUser > /de
 sleep 5
 echo "⏳ DHCP Allocating IP Address..."
 CONTAINER_IP=$(pct exec $NEXT_ID -- hostname -I | awk '{print $1}')
-
-# Set password inside the container
-pct exec $NEXT_ID -- bash -c "echo 'root:$CONTAINER_PASSWORD' | chpasswd" > /dev/null 2>&1
 
 # Setting Up Github Runner =====
 
