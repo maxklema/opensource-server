@@ -1,6 +1,7 @@
 #!/bin/bash
 # Script to create the pct container, run register container, and migrate container accordingly.
-# Last Modified by July 23rd, 2025 by Maxwell Klema
+# Last Modified by August 5th, 2025 by Maxwell Klema
+# -----------------------------------------------------
 
 BOLD='\033[1m'
 BLUE='\033[34m'
@@ -34,7 +35,7 @@ echoContainerDetails() {
 	echo -e "🌐  ${MAGENTA}Internal IP         :${RESET} $CONTAINER_IP"
 	echo -e "🔗  ${GREEN}Domain Name         :${RESET} https://$CONTAINER_NAME.opensource.mieweb.org"
 	echo -e "🛠️  ${BLUE}SSH Access          :${RESET} ssh -p $SSH_PORT $PROXMOX_USERNAME@$CONTAINER_NAME.opensource.mieweb.org"
-	echo -e "🔑  ${BLUE}Container Password          :${RESET} Your proxmox account password"
+	echo -e "🔑  ${BLUE}Container Password  :${RESET} Your proxmox account password"
 	echo -e "${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
 	echo -e "${BOLD}${MAGENTA}NOTE: Additional background scripts are being ran in detached terminal sessions.${RESET}"
 	echo -e "${BOLD}${MAGENTA}Wait up to two minutes for all processes to complete.${RESET}"
