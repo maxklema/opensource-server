@@ -48,68 +48,6 @@ graph TD
     class USER user
 ```
 
-## Repository Structure
-
-```
-│   README.md
-│   .gitmodules
-│   
-├───ci-cd automation
-│       check-container-exists.sh
-│       delete-container.sh
-│       README.md
-│       update-container.sh
-│       └───helper-scripts/
-│
-├───container creation
-│       configureLDAP.sh
-│       create-container.sh
-│       deployOnStart.sh
-│       get-deployment-details.sh
-│       get-lxc-container-details.sh
-│       README.md
-│       register-container.sh
-│       setup-runner.sh
-│       start_services.sh
-│       ├───deployment-scripts/
-│       ├───js/
-│       ├───protocols/
-│       ├───services/
-│       └───ssh/
-│
-├───dnsmasq service
-│       dnsmasq.conf
-│       README.md
-│
-├───gateway
-│       cleanup.sh
-│       custom-interfaces
-│       iptables-rules.sh
-│       networking.sh
-│       opensourced
-│       README.md
-│       restore.sh
-│       setup-bridge.sh
-│
-├───LDAP
-│       README.md
-│       ├───LDAPServer/
-│       └───pown/
-│
-├───nginx reverse proxy
-│       dynamic_backend.js
-│       nginx.conf
-│       nginx_error.log
-│       port_map.json
-│       README.md
-│       reload_nginx.sh
-│       ssl.conf
-│
-└───proxmox-launchpad
-        README.md
-        ...
-```
-
 ### Core Infrastructure
 
 - [`dnsmasq service/`](dnsmasq%20service/):  
@@ -132,7 +70,7 @@ graph TD
 ### Authentication & Directory Services
 
 - [`LDAP/`](LDAP/):  
-  Contains LDAP authentication infrastructure including a custom Node.js LDAP server that bridges database user management with LDAP protocols, and automated LDAP client configuration tools for seamless container authentication integration.
+  Contains LDAP authentication infrastructure including a custom Node.js LDAP server that bridges database user management with LDAP protocols, and automated LDAP client configuration tools for seamless container authentication integration. LDAP Server configured to reference the [Proxmox VE Users @pve realm](https://pve.proxmox.com/wiki/User_Management) with optional [Push Notification 2FA](https://github.com/mieweb/mieweb_auth_app)
 
 ### GitHub Action Integration
 
