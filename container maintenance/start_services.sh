@@ -4,7 +4,6 @@
 # Last Modified by Maxwell Klema on July 23rd, 2025
 # ------------------------------------------------
 
-set -x 
 CONTAINER_ID="$1"
 CONTAINER_NAME="$2"
 REPO_BASE_NAME="$3"
@@ -20,22 +19,18 @@ BUILD_COMMAND=$(echo "${12}" | base64 -d)
 RUNTIME_LANGUAGE=$(echo "${13}" | base64 -d)
 GH_ACTION="${14}"
 PROJECT_BRANCH="${15}"
-GITHUB_PAT="${16}"
-UPDATE_CONTAINER="${17}"
+UPDATE_CONTAINER="${16}"
 CONTAINER_NAME="${CONTAINER_NAME,,}"
 
 sleep 3
-pct stop $CONTAINER_ID > /dev/null 2>&1
-
-echo "$START_COMMAND"
-echo "$BUILD_COMMAND"
-echo "$RUNTIME_LANGUAGE"
-
-sleep 10
-
+if (( $CONTAINER_ID % 2 == 0 )) && [ "$UPDATE_CONTAINER" == "true" ]; then
+	ssh root@10.15.0.5 "pct stop $CONTAINER_ID" > /dev/null 2>&1
+else
+	pct stop $CONTAINER_ID > /dev/null 2>&1
+fi
 
 # Create template if on default branch ====
-# source /var/lib/vz/snippets/helper-scripts/create-template.sh
+source /var/lib/vz/snippets/helper-scripts/create-template.sh
 
 if (( $CONTAINER_ID % 2 == 0 )); then
 
